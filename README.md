@@ -83,3 +83,4 @@ const response = await fetch(
 ```
 
 ### UML Diagram
+![alt text](https://github.com/osu-cs361-group13/authorization-microservice/blob/main/UMLdiagram_AuthorizationService.png)

@@ -20,7 +20,7 @@ router.post('/register', asyncHandler(async (req, res) => {
     if (userAdded) {
         res.status(201).json({message: "User successfully added"});
     } else {
-        res.status(400).json({message: "Error: Username already exists"});
+        res.status(400).json({message: "Error: Email already exists"});
     }
 }));
 
@@ -33,7 +33,7 @@ router.post('/login', asyncHandler(async (req, res) => {
         req.session.user = {email};
         res.status(200).json({message: "Login successful"})
     } else {
-        res.status(400).json({message: "Error: Username or password incorrect"});
+        res.status(400).json({message: "Error: Email or password incorrect"});
     }
 }));
 

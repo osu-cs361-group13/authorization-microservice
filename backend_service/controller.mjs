@@ -57,4 +57,20 @@ router.post('/logout', asyncHandler(async (req, res) => {
     }) 
 }));
 
+/* Delete API */
+router.delete('/users/myaccount', asyncHandler(async (req, res) => {
+    const isDeleted = database.deleteUser(req.session.user.email);
+    if (isDeleted) {
+        req.session.destroy(err => {
+            if (err) {
+                return res.status(500).json({ error: "Logout error" });
+            }
+            res.clearCookie('connect.sid', { path: '/'});
+            res.status(200).json({message: 'Logout successful'})
+        }) 
+    } else {
+        res.status(400).json({message: 'Error deleting username and password'})
+    }
+}));
+
 export default router;

@@ -61,5 +61,20 @@ const validateUser = async(email, password) => {
     }
 }
 
+/**
+ * Deletes a specified email (and its corresponding password) from the
+ * users object.
+ * @param {string} email A unique user email.
+ * @returns true if the user's email/password was deleted; false othewise.
+ */
+const deleteUser = async(email) => {
+    if (hasUser(email)) {
+        delete users[email];
+        return true;
+    } else {
+        return false;
+    }
+}
 
-export { addUser, validateUser };
+
+export { addUser, validateUser, deleteUser };

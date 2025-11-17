@@ -21,6 +21,7 @@ The service has individual APIs to register a user, log a user in, check a user'
 #### Registering a New User:
 To register a new user email and password, the POST /register endpoint must be called (the full URL to the endpoint is "http://localhost:3001/auth/register"). The backend database ONLY stores email addresses and passwords as key-value pairs. Therefore, a call made to register a user should only include this information. An example of a call is below. If included in a handler function, it can be applied to the onClick property of a button to handle submission (see CreateAccount.jsx). The response received is either a 201 status, indicating the email/password was successfully added, or a 400 error code which indicates the email entered already exists.
 
+```
 const newUser = {email, password};
 const response = await fetch(
     "http://localhost:3001/auth/register", {
@@ -29,10 +30,12 @@ const response = await fetch(
         body: JSON.stringify(newUser)
     }
 )
+```
 
 #### Login:
 To Login a user, a call must be made to the POST /login endpoint (the full URL is "http://localhost:3001/auth/login"). An example of a call is below. If included in a handler function, it can be applied to the onClick property of a button to handle submission (see Login.jsx). The response received is either a 200 status, indicating the login was validated, or a 400 error code which indicates the email or password was incorrect. On the server side, a user-specific session will be created and a cookie will be created and sent back to the user. The "credentials: 'include'" property is necessary to ensure the credentials are sent.
 
+```
 const credentials = {email, password};
 const response = await fetch(
     "http://localhost:3001/auth/login", {
@@ -42,18 +45,22 @@ const response = await fetch(
         body: JSON.stringify(credentials)
     }
 )
+```
 
 #### Login Status:
 To check the login status of a user, a call must be made to the GET /login-status endpoint (the full URL is "http://localhost:3001/auth/login-status"). Email/password information are not needed to check login status as login state is maintained server-side and validated by the cookie that is generated upon login. Therefore, the "credentials: 'include'" property is necessary to ensure the credentials are sent with the API call. The server will check to see if a session has been created for that specific user, and a 200 status code will be sent back if logged in, or a 401 status code will be sent back if not logged in.
 
+```
 const response = await fetch("http://localhost:3001/auth/login-status", {
     method: 'GET',  
     credentials: "include"
 });
+```
 
 #### Logout:
 To logout, a call must be made to the POST /logout endpoint (the full URL is "http://localhost:3001/auth/logout"). Like the Login Status endpoint, email/password information is not sent. The credentials: 'include' property tells the call to include the cookie credentials. On the server side, the session is destroyed and the cookie is deleted. A 500 status is returned if there is an error destroying the session. Otherwise, a 200 status returned indicating successful logout.
 
+```
 const response = await fetch(
     "http://localhost:3001/auth/logout", {
         method: 'POST',
@@ -61,15 +68,18 @@ const response = await fetch(
         headers: {'Content-type': 'application/json'}
     }
 )
+```
 
 #### Delete User:
 To delete a user, a call must be made to the DELETE /users/myaccount endpoint (the full URL is "http://localhost:3001/auth/users/myaccount"). No username or password information is sent. The cookie credentials are sent back to the server (credentials: 'include' must be included in the call) where that user is deleted from the database and subsequently signed out according to the same procedures above. A 200 status is returned  if the account is successfully deleted and the user is signed out; a 500 status is returned if there is an error deleting the session; or a 400 status error is returned if there is an error deleting the username and password.
 
+```
 const response = await fetch(
     "http://localhost:3001/auth/users/myaccount", {
         method: 'DELETE',
         credentials: 'include'
     }
 )
+```
 
 ### UML Diagram

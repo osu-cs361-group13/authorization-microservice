@@ -11,7 +11,7 @@
 
 import bcrypt from "bcrypt";
 
-// Object used to store user emails and passwords as key-value pairs.
+
 let users = {};
 
 /**
@@ -33,8 +33,9 @@ const hasUser = (email) => {
  */
 const addUser = async(email, password) => {
     if (!hasUser(email)) {
-        // Password is stored as a hashed value.
         users[email] = await bcrypt.hash(password, 10);
+        console.log("\nAction: Create User Account");
+        console.log("User database = ", users);
         return true;
     } else {
         return false;
@@ -53,7 +54,6 @@ const addUser = async(email, password) => {
 const validateUser = async(email, password) => {
     if (hasUser(email)) {
         const savedPW = users[email];
-        // bcrypt.compare extracts salt from savedPW, rehashes password, and compares. 
         const isValid = await bcrypt.compare(password, savedPW);
         return isValid
     } else {
@@ -65,11 +65,13 @@ const validateUser = async(email, password) => {
  * Deletes a specified email (and its corresponding password) from the
  * users object.
  * @param {string} email A unique user email.
- * @returns true if the user's email/password was deleted; false othewise.
+ * @returns true if the user's email/password was deleted; false otherwise.
  */
 const deleteUser = async(email) => {
     if (hasUser(email)) {
         delete users[email];
+        console.log("\nAction: Delete User");
+        console.log("User database = ", users);
         return true;
     } else {
         return false;

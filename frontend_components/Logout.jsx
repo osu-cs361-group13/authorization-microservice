@@ -4,16 +4,15 @@
  * 
  * Description: A React component that returns a simple link to
  * initiate logout procedures. Includes handler function that
- * is called when link is pressed. Handler function calls the
- * /logout endpoint in the authorization microservice. 
+ * is called when link is pressed. 
  */
 
 import { useNavigate, Link } from 'react-router-dom';
 
+
 function Logout({ setLoggedIn }) {
     const navigate = useNavigate();
 
-    // Calls /logout endpoint in authorization microservice.
     const handleLogout = async() => {
         const response = await fetch(
             "http://localhost:3001/auth/logout", {
@@ -35,5 +34,6 @@ function Logout({ setLoggedIn }) {
         <Link to='#' onClick={handleLogout}>Logout</Link>
     );
 }
+
 
 export default Logout;

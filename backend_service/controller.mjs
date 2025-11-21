@@ -4,7 +4,8 @@
  * 
  * Description: Defines APIs for client-side use of the authorization
  * service. Allows client to register new username and password, get login
- * validation, check login status, and logout.
+ * validation, check login status, logout a user, and delete an email/
+ * password.
  */
 
 import express from 'express';
@@ -14,7 +15,7 @@ import asyncHandler from 'express-async-handler';
 const router = express.Router();
 router.use(express.json());
 
-/* Register API */
+
 router.post('/register', asyncHandler(async (req, res) => {
     const userAdded = await database.addUser(req.body.email, req.body.password);
     if (userAdded) {
@@ -24,7 +25,6 @@ router.post('/register', asyncHandler(async (req, res) => {
     }
 }));
 
-/* Login API */
 router.post('/login', asyncHandler(async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -37,7 +37,6 @@ router.post('/login', asyncHandler(async (req, res) => {
     }
 }));
 
-/* Login Check API */
 router.get('/login-status', asyncHandler(async (req, res) => {
     if (req.session.user) {
         res.status(200).json({message: "User logged in"})
@@ -46,7 +45,6 @@ router.get('/login-status', asyncHandler(async (req, res) => {
     }
 }))
 
-/* Logout API */
 router.post('/logout', asyncHandler(async (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -57,7 +55,6 @@ router.post('/logout', asyncHandler(async (req, res) => {
     }) 
 }));
 
-/* Delete API */
 router.delete('/users/myaccount', asyncHandler(async (req, res) => {
     const isDeleted = database.deleteUser(req.session.user.email);
     if (isDeleted) {
@@ -72,5 +69,6 @@ router.delete('/users/myaccount', asyncHandler(async (req, res) => {
         res.status(400).json({message: 'Error deleting username and password'})
     }
 }));
+
 
 export default router;

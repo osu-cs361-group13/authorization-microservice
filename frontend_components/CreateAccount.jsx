@@ -5,19 +5,18 @@
  * Description: A React component that returns a simple Create Account
  * form, including input fields for first name, last name, email, and
  * password. Includes handler function that is called when form information
- * is submitted. Handler function calls the /register endpoint in the
- * authorization microservice. 
+ * is submitted. 
  */
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 function CreateAccount() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // Calls /register endpoint in authorization microservice.
     const handleRegister = async(e) => {
         e.preventDefault();
         const newUser = {email, password};
@@ -87,5 +86,6 @@ function CreateAccount() {
         </div>
     );
 }
+
 
 export default CreateAccount;

@@ -10,10 +10,10 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 function RouteAuthenticator ({component}) {
     const [loggedIn, setLoggedIn] = useState(null);
 
-    // Checks login status and changes state variable accordingly.
     useEffect(() => {
         const checkLogIn = async() => {
             const response = await fetch("http://localhost:3001/auth/login-status", {
@@ -29,15 +29,14 @@ function RouteAuthenticator ({component}) {
         checkLogIn();
     }, []);
 
-    // Returns wrapped page if user is authenticated.
     if(loggedIn === true) {
         return <>{component}</>;
     }
 
-    // If not authenticated, the user is rerouted to the login page.
     if(loggedIn === false) {
         return <Navigate to="/login"/>;
     }
 }
+
 
 export default RouteAuthenticator;

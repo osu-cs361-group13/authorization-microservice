@@ -5,19 +5,17 @@
  * Description: A React component that returns a simple login form
  * including input fields for email and password. Includes handler
  * function that is called when form information is submitted.
- * Handler function calls the /login endpoint in the
- * authorization microservice. 
  */
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 function Login({ setLoggedIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // Calls /login endpoint in authorization microservice.
     const handleLogin = async(e) => {
         e.preventDefault();
         const credentials = {email, password};
@@ -69,5 +67,6 @@ function Login({ setLoggedIn }) {
         </div>
     );
 }
+
 
 export default Login;

@@ -6,7 +6,7 @@ Responsible for creating email and password combinations with unique email addre
 ### Download and Run Service
 All backend service files are saved in the "backend_service" folder. To run the service on your local machine:
 1. Download the files
-2. Run "npm install"
+2. Run "npm install" (if you have downloaded all of the files including "frontend_components", make sure your terminal is in the backend_service directory)
 3. Run "npm run start"
 
 By default, the service will listen on port 3001; however, this value can be changed in the .env file to resolve port conflicts if necessary. Additionally, prior to running the service, you will need to define a secret key for the SESSION_KEY variable in .env.

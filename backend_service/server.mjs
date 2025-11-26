@@ -19,6 +19,7 @@ const service = express();
 service.use(express.json());
  
 service.use(session({
+    name: 'authService_session',
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,

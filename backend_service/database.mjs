@@ -34,8 +34,6 @@ const hasUser = (email) => {
 const addUser = async(email, password) => {
     if (!hasUser(email)) {
         users[email] = await bcrypt.hash(password, 10);
-        console.log("\nAction: Create User Account");
-        console.log("User database = ", users);
         return true;
     } else {
         return false;
@@ -70,8 +68,6 @@ const validateUser = async(email, password) => {
 const deleteUser = async(email) => {
     if (hasUser(email)) {
         delete users[email];
-        console.log("\nAction: Delete User");
-        console.log("User database = ", users);
         return true;
     } else {
         return false;
